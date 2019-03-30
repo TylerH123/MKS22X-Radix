@@ -42,6 +42,7 @@ public class MyLinkedList<E>{
   public MyLinkedList(){
     start = new Node();
     end = new Node();
+    length = 0;
   }
   //make a new node that contains the value
   //then set the end to the new node
@@ -60,19 +61,6 @@ public class MyLinkedList<E>{
     end = newNode;
     length++;
     return true;
-  }
-  //use getNthNode to get the node at the desired index
-  //then set the data at the node to the new value
-  public E set(int index, E value){
-    if (index >= length || index < 0) throw new IndexOutOfBoundsException();
-    E num = getNthNode(index).getData();
-    getNthNode(index).setData(value);
-    return num;
-  }
-  //use getNthNode to get the node at the index then return data
-  public E get(int index){
-    if (index >= length || index < 0) throw new IndexOutOfBoundsException();
-    return getNthNode(index).getData();
   }
   //get the nth node of the linked MyLinkedList
   private Node getNthNode(int idx){
@@ -112,12 +100,17 @@ public class MyLinkedList<E>{
     }
     return out + "]";
   }
+  public void clear(){
+    start = new Node();
+    end = new Node();
+    length = 0;
+  }
   //concatenate two lists
   //set the start, end, length of the other list to null/0 to erase it
   //set the prev of the first node of other to the last node of the first list
   //set the next of the last node of the first list to the first node of other
   //set end to the last node of other
-  public void extend(MyLinkedList other){
+  public void extend(MyLinkedList<E> other){
     if (length == 0){
       start = other.start;
       end = other.end;
