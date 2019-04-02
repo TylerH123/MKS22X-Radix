@@ -1,35 +1,17 @@
 public class Radix{
   public static void radixsort(int[] data){
-    MyLinkedList<Integer>[] buckets;
-    buckets = new MyLinkedList[20];
+    MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
+    for (int i =0; i < 20; i++){
+      buckets[i] = new MyLinkedList<Integer>(); 
+    }
     int count = getMax(data);
     int base = 10;
     int idx = 0;
     for(int i = 0; i < count * data.length; i++){
       if (idx == data.length){
         idx = 0;
-        buckets[0].extend(buckets[1]);
-        buckets[0].extend(buckets[2]);
-        buckets[0].extend(buckets[3]);
-        buckets[0].extend(buckets[4]);
-        buckets[0].extend(buckets[5]);
-        buckets[0].extend(buckets[6]);
-        buckets[0].extend(buckets[7]);
-        buckets[0].extend(buckets[8]);
-        buckets[0].extend(buckets[9]);
-        buckets[0].extend(buckets[10]);
-        buckets[0].extend(buckets[11]);
-        buckets[0].extend(buckets[12]);
-        buckets[0].extend(buckets[13]);
-        buckets[0].extend(buckets[14]);
-        buckets[0].extend(buckets[15]);
-        buckets[0].extend(buckets[16]);
-        buckets[0].extend(buckets[17]);
-        buckets[0].extend(buckets[18]);
-        buckets[0].extend(buckets[19]);
-        buckets[0].extend(buckets[20]);
-        for (int j = 0; j < data.length; j++){
-          data[j] = buckets[0].getData();
+        for (int j = 0; i < 19; i++){
+          buckets[0].extend(buckets[j+1]);
         }
       }
       int digit = data[idx] % base;
