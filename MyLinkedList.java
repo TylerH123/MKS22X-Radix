@@ -63,7 +63,7 @@ public class MyLinkedList<E>{
     return true;
   }
   //get the nth node of the linked MyLinkedList
-  private Node getNthNode(int idx){
+  public Node getNthNode(int idx){
     if (idx >= length || idx < 0) throw new IndexOutOfBoundsException();
     Node current = start;
     int index = 0;
