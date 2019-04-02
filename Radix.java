@@ -47,8 +47,21 @@ public class Radix{
             buckets[9 - digit].add(data[idx]);
           }
         }
+        temp.clear();
+        //copy from buckets to temp and extend
+        for (int j = 0; j < 20; j++){
+          temp.extend(buckets[j]);
+        }
+        //clear the buckets for another pass
+        for (MyLinkedList<Integer> m : buckets){
+          m.clear();
+        }
       }
       base *= 10;
+    }
+    //copy from linked list to original array
+    for (int i = 0; i < data.length; i++){
+      data[i] = temp.removeFront(); 
     }
   }
   //find max of the data and return how many passes radix sort will need
