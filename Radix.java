@@ -22,17 +22,33 @@ public class Radix{
             buckets[9 - digit].add(data[idx]);
           }
         }
-        //clear temp 
+        //clear temp
         temp.clear();
+        //use temp and extend the buckets to this
+        for (int j = 0; j < 20; j++){
+          temp.extend(buckets[j]);
+        }
+        //clear the buckets for another pass
+        for (MyLinkedList<Integer> m : buckets){
+          m.clear();
+        }
       }
-      //use temp and extend the buckets to this
-      for (int j = 0; j < 20; j++){
-        temp.extend(buckets[j]);
+      //other passes
+      else{
+        for (int idx = 0; idx < data.length; idx++){
+          //get the digit
+          int digit = temp.removeFront() % base;
+          //sort the positives
+          if (data[idx] >= 0){
+            buckets[digit + 10].add(data[idx]);
+          }
+          //sort the negatives
+          else{
+            buckets[9 - digit].add(data[idx]);
+          }
+        }
       }
-      //clear the buckets for another pass
-      for (MyLinkedList<Integer> m : buckets){
-        m.clear();
-      }
+      base *= 10;
     }
   }
   //find max of the data and return how many passes radix sort will need
