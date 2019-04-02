@@ -5,23 +5,33 @@ public class Radix{
     for (int i =0; i < 20; i++){
       buckets[i] = new MyLinkedList<Integer>();
     }
+    MyLinkedList<Integer> temp = new MyLinkedList<Integer>();
     int count = getMax(data);
     int base = 10;
-    int idx = 0;
-    for(int i = 0; i < count * data.length; i++){
-      if (idx == data.length){
-        idx = 0;
-        for (int j = 0; i < 19; i++){
-          buckets[0].extend(buckets[j+1]);
+    for(int i = 0; i < count; i++){
+      //first pass through the array
+      if (i == 0){
+        for (int idx = 0; idx < data.length; idx++){
+          int digit = data[idx] % base;
+          //sort the positives
+          if (data[idx] >= 0){
+            buckets[digit + 10].add(data[idx]);
+          }
+          //sort the negatives
+          else{
+            buckets[9 - digit].add(data[idx]);
+          }
         }
+        //clear temp 
+        temp.clear();
       }
-      int digit = data[idx] % base;
-
-      if (data[i] >= 0){
-        buckets[digit + 10].add(data[i]);
+      //use temp and extend the buckets to this
+      for (int j = 0; j < 20; j++){
+        temp.extend(buckets[j]);
       }
-      else{
-        buckets[9 - digit].add(data[i]);
+      //clear the buckets for another pass
+      for (MyLinkedList<Integer> m : buckets){
+        m.clear();
       }
     }
   }
