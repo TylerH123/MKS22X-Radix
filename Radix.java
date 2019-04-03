@@ -36,7 +36,7 @@ public class Radix{
           temp.extend(buckets[j]);
           //System.out.println(temp.toString());
         }
-        System.out.println("pass #: 0 " + temp.toString());
+        //System.out.println("reorder #: 1 " + temp.toString());
         //clear the buckets for another pass
         for (MyLinkedList<Integer> m : buckets){
           m.clear();
@@ -50,26 +50,30 @@ public class Radix{
           int digit = (num / base) % 10;
           //System.out.println("pass #: " + i + " base: " + base + " num: " + num + " digit: " + digit);
           //sort the positives
-          if (data[idx] >= 0){
-            buckets[digit + 10].add(data[idx]);
+          if (num >= 0){
+            //System.out.println("pass #: " + i + " base: " + base + " num: " + num + " bucket #: " + (digit + 10) + " digit: " + digit);
+            buckets[digit + 10].add(num);
+            //System.out.println("bucket: " + (digit+10) + " " + buckets[digit+10].toString());
           }
           //sort the negatives
           else{
-            buckets[9 - digit].add(data[idx]);
+            buckets[9 - digit].add(num);
           }
         }
+        //System.out.println("base: " + base + " | " + linkedString(buckets));
         //clear temp
         temp.clear();
         //copy from buckets to temp and extend
         for (int j = 0; j < 20; j++){
           temp.extend(buckets[j]);
         }
-        System.out.println("pass #: " + i + " " + temp.toString());
+        //System.out.println("reorder #: " + (i+1) + " " + temp.toString());
         //clear the buckets for another pass
         for (MyLinkedList<Integer> m : buckets){
           m.clear();
         }
       }
+      //increase the base
       base *= 10;
     }
     //copy from linked list to original array
@@ -89,6 +93,14 @@ public class Radix{
       count++;
     }
     return count;
+  }
+  //debuggingg
+  public static String linkedString(MyLinkedList<Integer>[] data){
+    String output = "";
+    for (int i = 10; i < data.length; i++){
+      output += data[i].toString() + " ";
+    }
+    return output;
   }
   public static void test(){
     //int[] arr = new int[]{12,199,13334};
