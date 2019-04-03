@@ -36,6 +36,7 @@ public class Radix{
           temp.extend(buckets[j]);
           //System.out.println(temp.toString());
         }
+        System.out.println("pass #: 0 " + temp.toString());
         //clear the buckets for another pass
         for (MyLinkedList<Integer> m : buckets){
           m.clear();
@@ -47,7 +48,7 @@ public class Radix{
           //get the digit
           int num = temp.removeFront();
           int digit = (num / base) % 10;
-          System.out.println("pass #: " + i + " base: " + base + " num: " + num + " digit: " + digit);
+          //System.out.println("pass #: " + i + " base: " + base + " num: " + num + " digit: " + digit);
           //sort the positives
           if (data[idx] >= 0){
             buckets[digit + 10].add(data[idx]);
@@ -57,11 +58,13 @@ public class Radix{
             buckets[9 - digit].add(data[idx]);
           }
         }
+        //clear temp
         temp.clear();
         //copy from buckets to temp and extend
         for (int j = 0; j < 20; j++){
           temp.extend(buckets[j]);
         }
+        System.out.println("pass #: " + i + " " + temp.toString());
         //clear the buckets for another pass
         for (MyLinkedList<Integer> m : buckets){
           m.clear();
