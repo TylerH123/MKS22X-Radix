@@ -81,7 +81,6 @@ public class MyLinkedList<E>{
   public E removeFront(){
     E val = start.getData();
     start = start.next();
-    start.setPrev(null);
     length--;
     return val;
   }
@@ -116,9 +115,11 @@ public class MyLinkedList<E>{
       end = other.end;
     }
     else if (other.length > 0){
-      other.start = start;
+      end.setNext(other.start);
       end = other.end;
     }
+    other.start = null;
+    other.end = null; 
     length += other.length;
     other.length = 0;
   }
