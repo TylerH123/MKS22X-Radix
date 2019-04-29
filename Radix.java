@@ -22,38 +22,16 @@ public class Radix{
         for (int idx = 0; idx < data.length; idx++){
           //get the digit
           int num = buckets[0].removeFront();
-          int digit = (num / base) % 10;
-          //System.out.println("pass #: " + i + " base: " + base + " num: " + num + " digit: " + digit);
-          //sort the positives
-          if (num >= 0){
-            //System.out.println("pass #: " + i + " base: " + base + " num: " + num + " bucket #: " + (digit + 10) + " digit: " + digit);
-            buckets[digit + 10].add(num);
-            //System.out.println("bucket: " + (digit+10) + " " + buckets[digit+10].toString());
-          }
-          //sort the negatives
-          else{
-            buckets[9 - digit].add(num);
-          }
-        }
-        //System.out.println("base: " + base + " | " + linkedString(buckets));
-        //clear temp
-        temp.clear();
-        //copy from buckets to temp and extend
-        for (int j = 0; j < 20; j++){
-          temp.extend(buckets[j]);
-        }
-        //System.out.println("reorder #: " + (i+1) + " " + temp.toString());
-        //clear the buckets for another pass
-        for (MyLinkedList<Integer> m : buckets){
-          m.clear();
+          int digit = (num / (int)Math.pow(10,i)) % 10;
+          buckets[digit + 10].add(data[idx]);
         }
       }
-      //increase the base
-      base *= 10;
+      for (int k = 1; k < 20; k++){
+         buckets[0].extend(buckets[k]);
+      }
     }
-    //copy from linked list to original array
     for (int i = 0; i < data.length; i++){
-      data[i] = temp.removeFront();
+      data[i] = buckets[0].removeFront();
     }
   }
   //find max of the data and return how many passes radix sort will need
