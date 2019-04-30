@@ -19,13 +19,9 @@ public class Radix{
           int digit = (data[idx] / base) % 10;
           //System.out.println(digit);
           //sort the positives
-          if (data[idx] >= 0){
+  
             buckets[digit + 10].add(data[idx]);
-          }
-          //sort the negatives
-          else{
-            buckets[9 - digit].add(data[idx]);
-          }
+
         }
         //clear temp
         temp.clear();
@@ -51,15 +47,10 @@ public class Radix{
           int digit = (num / base) % 10;
           //System.out.println("pass #: " + i + " base: " + base + " num: " + num + " digit: " + digit);
           //sort the positives
-          if (num >= 0){
             //System.out.println("pass #: " + i + " base: " + base + " num: " + num + " bucket #: " + (digit + 10) + " digit: " + digit);
             buckets[digit + 10].add(num);
             //System.out.println("bucket: " + (digit+10) + " " + buckets[digit+10].toString());
-          }
-          //sort the negatives
-          else{
-            buckets[9 - digit].add(num);
-          }
+
         }
         //System.out.println("base: " + base + " | " + linkedString(buckets));
         //clear temp
@@ -104,7 +95,7 @@ public class Radix{
     return output;
   }
   public static void main(String[] args){
-    int[] arr = new int[]{100,1124,12412,91,32,134};
+    int[] arr = new int[]{100,1124,12412,91,32,-14,-109121,-99,12,-29};
     radixsort(arr);
     System.out.println(Arrays.toString(arr));
   }
